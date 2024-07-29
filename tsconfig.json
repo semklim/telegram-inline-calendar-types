@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+      "rootDir": ".",
+      "module": "node16",
+      "lib": [
+          "es6",
+          "esnext",
+          "es2020"
+      ],
+      "strict": true,
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "target": "es5",
+      "types": [],
+      "noEmit": true,
+      "forceConsistentCasingInFileNames": true
+  },
+  "files": [
+      "index.d.ts"
+  ]
+}
