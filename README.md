@@ -9,6 +9,18 @@
 npm i -D telegram-inline-calendar-types
 ```
 
+### Add type definition to your tsconfig.json:
+```json
+{
+  "compilerOptions": {
+    // Other fields...,
+    "types": ["telegram-inline-calendar-types"]
+    // Other fields...,
+  }
+}
+```
+
+
 # Summary
 This package contains type definitions for [telegram-inline-calendar](https://github.com/VDS13/telegram-inline-calendar).
 
