@@ -1,5 +1,37 @@
+// Type definitions for telegram-inline-calendar
+// Project: https://github.com/VDS13/telegram-inline-calendar
+// Definitions by: semklim <https://github.com/semklim>
+// Definitions: https://github.com/semklim/telegram-inline-calendar-types
+
+interface Message {
+  [k: string]: unknown;
+}
+
+interface CallbackQuery {
+  [k: string]: unknown;
+}
+
+interface InlineKeyboardButton {
+  text: string;
+  callback_data: string;
+}
+
+interface InlineKeyboardMarkup {
+  resize_keyboard: boolean;
+  inline_keyboard: InlineKeyboardButton[][];
+}
+
+type Context<U = any> = Record<any, any>;
+type Update = any;
+type Telegraf<C> = Record<any, any>;
+type Bot<C, A> = Record<any, any>;
+type Api<R> = Record<any, any>;
+type RawApi = Record<any, any>;
+type TelegramBot = Record<any, any>;
+type TeleBot = Record<any, any>;
+
 declare module "telegram-inline-calendar" {
-  export interface CalendarOptions {
+  interface CalendarOptions {
     /**
      * Get the formatted date according to the string of tokens passed in.
      *```ts
@@ -21,7 +53,7 @@ declare module "telegram-inline-calendar" {
      * bot_api = 'node-telegram-bot-api' //default
      * ```
      */
-    bot_api: "node-telegram-bot-api" | "telegraf" | "telebot" | "grammy";
+    bot_api?: "node-telegram-bot-api" | "telegraf" | "telebot" | "grammy";
     /**
      * Close calendar after date selection
      *```
@@ -108,51 +140,7 @@ declare module "telegram-inline-calendar" {
     lock_datetime_array?: string[] | false;
   }
 
-  export interface InlineKeyboardButton {
-    text: string;
-    callback_data: string;
-  }
-
-  export interface InlineKeyboardMarkup {
-    resize_keyboard: boolean;
-    inline_keyboard: InlineKeyboardButton[][];
-  }
-
-  interface IGrammyContext {
-    [k: string]: unknown;
-  }
-  interface ITelegrafContext {
-    [k: string]: unknown;
-  }
-  interface ITelebotMessage {
-    [k: string]: unknown;
-  }
-  interface INodeTelegramBotApiMessage {
-    [k: string]: unknown;
-  }
-  interface ITelebotCallbackQuery {
-    [k: string]: unknown;
-  }
-  interface INodeTelegramBotApiCallbackQuery {
-    [k: string]: unknown;
-  }
-
-  type Update = any;
-  type Context<U = any> = Record<any, any>;
-  type Telegraf<Context> = Record<any, any>;
-  type Bot<Context, Api> = Record<any, any>;
-  type Api<RawApi> = Record<any, any>;
-  type RawApi = Record<any, any>;
-  type TelegramBot = Record<any, any>;
-  type TeleBot = Record<any, any>;
-
-  type BotProps =
-    | Telegraf<Context<Update>>
-    | Bot<Context, Api<RawApi>>
-    | TelegramBot
-    | TeleBot;
-
-  export class Calendar {
+  class Calendar {
     private lock_date_array: string[];
     private DateFunc: {
       withoutLockDate(date: Date, d: number): boolean;
@@ -182,10 +170,18 @@ declare module "telegram-inline-calendar" {
     private Grammy: any;
     public chats: Map<number, number>;
     public options: CalendarOptions;
-
+    /**
+     * Date, time picker and inline calendar.
+     * 
+     * @param bot TelegramBot class instance (Telebot/node-telegram-bot-api) or `false` for (Telegraf/grammY)
+     * 
+     * @param options Configuration object
+     * 
+     * @link API: https://github.com/VDS13/telegram-inline-calendar/blob/main/v2.x/API.md
+     *
+     */
     constructor(
-      bot:
-        | Telegraf<Context<Update>>
+      bot: Telegraf<Context<Update>>
         | Bot<Context, Api<RawApi>>
         | TelegramBot
         | TeleBot
@@ -219,11 +215,8 @@ declare module "telegram-inline-calendar" {
      * https://telegraf.js.org/classes/Context.html (Telegraf)
      */
     startNavCalendar(
-      msg:
-        | INodeTelegramBotApiMessage
-        | ITelebotMessage
-        | ITelegrafContext
-        | IGrammyContext,
+      msg: Message
+        | Context
     ): void;
 
     /**
@@ -235,11 +228,8 @@ declare module "telegram-inline-calendar" {
      * https://telegraf.js.org/classes/Context.html (Telegraf)
      */
     startTimeSelector(
-      msg:
-        | INodeTelegramBotApiMessage
-        | ITelebotMessage
-        | ITelegrafContext
-        | IGrammyContext,
+      msg: Message
+        | Context
     ): void;
 
     /**
@@ -253,11 +243,9 @@ declare module "telegram-inline-calendar" {
      * https://telegraf.js.org/classes/Context.html (Telegraf)
      */
     clickButtonCalendar(
-      query:
-        | INodeTelegramBotApiCallbackQuery
-        | ITelebotCallbackQuery
-        | ITelegrafContext
-        | IGrammyContext,
+      msg:
+        | CallbackQuery
+        | Context,
     ): string | number;
 
     /**
