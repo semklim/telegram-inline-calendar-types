@@ -1,6 +1,6 @@
 {
   "name": "telegram-inline-calendar-types",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TypeScript definitions for telegram-inline-calendar",
   "main": "",
   "projects": [
